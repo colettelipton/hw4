@@ -253,6 +253,7 @@ protected:
     static Node<Key, Value>* successor(Node<Key, Value>* current);
 		bool isBalancedHelp(Node<Key, Value>* root) const;
     int height(Node<Key, Value>* cur) const;
+		void clearHelp(Node<Key, Value>* c);
 
 
 protected:
@@ -459,21 +460,21 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 
 template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::insertHelp(const std::pair<const Key, Value> &keyValuePair, Node<Key, Value>* prev, Node<Key, Value>* root, int lr){
-	// add the node
-	if(root == nullptr){
-		// if the BST is empty
-		if(prev == nullptr){
-			root_ = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, nullptr);
-      return;
-		}
+        // add the node
+        if(root == nullptr){
+            // if the BST is empty
+            if(prev == nullptr){
+            root_ = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, nullptr);
+            return;
+        }
 
-		// if the BST is not empty
-		else{
-			root = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, prev);
-			if(lr == 0) prev->setLeft(root);
-			else prev->setRight(root);
-      return;
-    }
+        // if the BST is not empty
+        else{
+            root = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, prev);
+            if(lr == 0) prev->setLeft(root);
+            else prev->setRight(root);
+            return;
+        }
 	}
 
 	// if the keys are equal, replaces the value
@@ -576,12 +577,8 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
 
 		// node has 2 children
 		else{
-
-			this->print();
 			Node<Key, Value>* pred = predecessor(cur);
 			nodeSwap(pred, cur);
-
-			this->print();
 
 			// if cur is a leaf node
 			if(cur->getLeft() == nullptr && cur->getRight() == nullptr){
@@ -687,7 +684,8 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value>* current){
             if(current == current->getParent()->getLeft()){
                 return current->getParent();
             }
-						current = current->getParent();
+            //std::cout << current->getKey() << std::endl;
+			current = current->getParent();
         }
     }
     return nullptr;
@@ -702,9 +700,23 @@ template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::clear()
 {
     // TODO
-		while(root_ != nullptr){
-			remove(root_->getKey());
+		//clearHelp(root_);
+
+		Node<Key, Value>* cur = root_;
+		while(cur != nullptr){
+			remove(cur->getKey());
+			cur = root_;
 		}
+}
+
+template<typename Key, typename Value>
+void BinarySearchTree<Key, Value>::clearHelp(Node<Key, Value>* c){
+	if(c == nullptr){
+		return;
+	}
+	clearHelp(c->getLeft());
+	clearHelp(c->getRight());
+	remove(c->getKey());
 }
 
 
