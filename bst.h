@@ -5,8 +5,6 @@
 #include <exception>
 #include <cstdlib>
 #include <utility>
-// can i add this?
-#include <cmath>
 
 /**
  * A templated class for a Node in a search tree.

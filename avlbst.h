@@ -1,7 +1,7 @@
 #ifndef AVLBST_H
 #define AVLBST_H
 
-#include <iostream>
+//#include <iostream>
 #include <exception>
 #include <cstdlib>
 #include <cstdint>
