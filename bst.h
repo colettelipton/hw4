@@ -638,7 +638,6 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
                 delete cur;
 			}
 			} 
-			this->print();
 		}
 }
 
@@ -684,7 +683,6 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value>* current){
             if(current == current->getParent()->getLeft()){
                 return current->getParent();
             }
-            //std::cout << current->getKey() << std::endl;
 			current = current->getParent();
         }
     }
