@@ -1,9 +1,10 @@
 #ifndef RECCHECK
 #include <iostream>
-#endif
-
 #include "equal-paths.h"
 #include <algorithm>
+#endif
+
+
 using namespace std;
 
 bool treelen(int curlen, int& fpath, Node* root);
